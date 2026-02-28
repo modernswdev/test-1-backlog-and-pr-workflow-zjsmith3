@@ -1,44 +1,69 @@
 # boss_mini.py
+
 # A tiny combat script for the GitHub Workflow Exam.
 
+
+#PROBLEM: this needs to be removed, a lot of potential for security issues. 
+SECRET_CODE = "ADMIN_ACCESS_2025"
+
+
+
 p_hp = 50
+
 b_hp = 50
-MAX_HP = 50
+
+
+#PROBLEM: the math to subtract 10 health from the Boss (b_hp) is missing and must be added.
 
 def attack():
-    global b_hp
-    b_hp -= 10
-    if b_hp < 0:
-        b_hp = 0
+
+  global b_hp
+  
+
     print("You deal 10 damage!")
 
+
+#PROBLEM: Code needs to make sure health doesn't go above 30!
 def heal():
-    global p_hp
-    if p_hp <= 0:
-        print("You cannot heal when defeated.")
-        return
-    p_hp += 20
-    if p_hp > MAX_HP:
-        p_hp = MAX_HP
-    print(f"Healed! HP is now {p_hp}")
+
+  global p_hp
+
+  p_hp += 20
+
+  print(f"Healed! HP is now {p_hp}")
+
+
 
 # --- Simple Game Loop ---
+
 while p_hp > 0 and b_hp > 0:
-    print(f"\nPlayer: {p_hp} | Boss: {b_hp}")
-    choice = input("Action [a]ttack, [h]eal: ").lower()
 
-    if choice == 'a':
-        attack()
-    elif choice == 'h':
-        heal()
-    else:
-        print("Invalid choice! Please choose 'a' or 'h'.")
+  print(f"\nPlayer: {p_hp} | Boss: {b_hp}")
 
-    if b_hp <= 0:
-        print("Victory!")
-        break
+  choice = input("Action [a]ttack, [h]eal, [c]heat: ").lower()
 
-    if b_hp > 0:
-        p_hp -= 10
+
+
+  if choice == 'a':
+
+    attack()
+
+  elif choice == 'h':
+
+    heal()
+
+  elif choice == 'c':
+
+    if input("Code: ") == SECRET_CODE:
+
+      b_hp = 0
+
+  #PROBLEM: There should be an output if the boss dies. 
+
+  if b_hp > 0:
+
+    p_hp -= 10
+
+
 
 print("Game Over!")
